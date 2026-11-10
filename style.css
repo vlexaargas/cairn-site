@@ -117,6 +117,17 @@ header.top > .wrap { display: flex; align-items: center; justify-content: space-
 .end .mark { height: 8px; width: min(260px, 60%); border-radius: 4px; background: var(--accent); }
 .end .sub { font-size: 24px; color: var(--ink-soft); }
 footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-block: 22px 32px; font-size: 14px; color: var(--ink-soft); }
+footer a { min-height: 44px; display: inline-flex; align-items: center; margin-block: -14px; }
+
+/* The privacy policy: one readable column of the page's own type. */
+.policy .wrap { max-width: 720px; padding-block: 40px var(--section); }
+.policy h1 { font-size: clamp(40px, 6vw, 56px); line-height: 1.06; margin-top: 10px; }
+.policy .lede { margin-top: 18px; }
+.policy h2 { font-size: 24px; line-height: 1.2; margin-top: 44px; }
+.policy p, .policy ul { margin-top: 12px; }
+.policy ul { padding-left: 1.2em; }
+.policy li + li { margin-top: 6px; }
+.policy a { color: var(--main); }
 
 @media (max-width: 900px) {
   .hero .wrap, .play .wrap, .end .wrap { grid-template-columns: minmax(0, 1fr); }
