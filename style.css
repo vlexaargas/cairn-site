@@ -118,6 +118,7 @@ header.top > .wrap { display: flex; align-items: center; justify-content: space-
 .end .sub { font-size: 24px; color: var(--ink-soft); }
 footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-block: 22px 32px; font-size: 14px; color: var(--ink-soft); }
 footer a { min-height: 44px; display: inline-flex; align-items: center; margin-block: -14px; }
+footer .links { display: inline-flex; flex-wrap: wrap; gap: 0 24px; }
 
 /* The privacy policy: one readable column of the page's own type. */
 .policy .wrap { max-width: 720px; padding-block: 40px var(--section); }
