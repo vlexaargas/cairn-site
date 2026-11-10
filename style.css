@@ -1,0 +1,135 @@
+/* Page reset: no margins, room for a phone's notch and home bar, and hidden means hidden. */
+*, *::before, *::after { box-sizing: border-box; }
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+
+/* Layout: the film's frames as page sections; island on one side, words on the other, mist everywhere.
+   One deliberate light look, the app's own palette (Cairn/Design/Palette.swift). */
+:root {
+  --ground: #EEF3F6;
+  --main: #2F6F8F;
+  --second: #1D2A33;
+  --accent: #C99A3E;
+  --ink-soft: color-mix(in srgb, #1D2A33 72%, #EEF3F6);
+  --line: color-mix(in srgb, #1D2A33 14%, transparent);
+  --sky-top: color-mix(in srgb, #2F6F8F 22%, #EEF3F6);
+  --sky-low: color-mix(in srgb, #C99A3E 10%, #EEF3F6);
+  --display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --section: clamp(64px, 8vw, 104px);
+  color-scheme: light;
+}
+html { background: var(--ground); }
+body { background: var(--ground); color: var(--second); font-family: var(--sans); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; letter-spacing: -0.01em; text-wrap: balance; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--main); outline-offset: 3px; border-radius: 6px; }
+
+.wrap { max-width: 1160px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.kicker { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); }
+
+/* Brand: the film's end card, the name over a brass mark. */
+.brand { display: inline-flex; flex-direction: column; gap: 4px; text-decoration: none; }
+.brand b { font-family: var(--display); font-weight: 700; font-size: 26px; line-height: 1; letter-spacing: -0.01em; }
+.brand i { display: block; height: 4px; width: 46px; border-radius: 2px; background: var(--accent); }
+
+/* Sky band: the film's gradient with clouds and far pebbles drawn on a canvas behind. */
+.sky { position: relative; background: linear-gradient(var(--sky-top), var(--ground) 70%, var(--sky-low)); overflow: hidden; }
+.sky > canvas.air { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.sky > * { position: relative; }
+
+header.top > .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px 0; }
+.quiet { font: 600 15px/1 var(--sans); color: var(--second); text-decoration: none; padding: 0 20px; min-height: 44px; display: inline-flex; align-items: center; border-radius: 999px; background: color-mix(in srgb, var(--ground) 85%, transparent); border: 1px solid var(--line); cursor: pointer; }
+.quiet:hover { background: var(--ground); }
+
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; gap: 24px; padding-block: 8px var(--section); }
+.stage { position: relative; aspect-ratio: 1 / 1; max-width: 100%; }
+.stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: pan-y; cursor: grab; }
+.stage canvas:active { cursor: grabbing; }
+.day { position: absolute; left: 4%; bottom: 6%; display: flex; flex-direction: column; gap: 2px; pointer-events: none; }
+.day strong { font-family: var(--display); font-weight: 700; font-size: clamp(56px, 8vw, 96px); line-height: .9; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.words { display: flex; flex-direction: column; gap: 22px; position: relative; }
+.words::before { content: ""; position: absolute; inset: -18% -20%; z-index: -1; background: radial-gradient(closest-side, color-mix(in srgb, var(--ground) 88%, transparent) 55%, transparent); }
+.hero h1 { font-size: clamp(40px, 5.4vw, 64px); line-height: 1.06; }
+.lede { font-size: 19px; color: var(--ink-soft); max-width: 34em; }
+
+/* The official store badges, at equal visual height. Google's artwork carries its own padding (41 of 250 px top and bottom), trimmed here with negative margins. Inert until the listings are live. */
+.store-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 16px; }
+.badge { display: inline-flex; border-radius: 9px; }
+.badge img { display: block; height: 48px; width: auto; max-width: none; flex: none; }
+.badge-google img { height: 71.4px; margin: -11.7px -11.7px; }
+.badge:hover img { opacity: .9; }
+
+/* Beats: three days of one practice, in order. */
+.beats, .facts { padding-block: var(--section); }
+.head { display: flex; flex-direction: column; gap: 14px; max-width: 40em; }
+.beats h2, .play h2, .facts h2 { font-size: clamp(32px, 4vw, 46px); line-height: 1.08; }
+.beat-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 40px; }
+.beat { border-radius: 28px; overflow: hidden; background: linear-gradient(var(--sky-top), var(--ground) 80%); display: flex; flex-direction: column; }
+.beat .stage { aspect-ratio: 1 / 1; }
+.beat .stage canvas { cursor: default; }
+.beat .cap { padding: 0 24px 26px; display: flex; flex-direction: column; gap: 6px; }
+.beat .cap .kicker { color: var(--accent); }
+.beat h3 { font-size: 24px; line-height: 1.15; }
+.beat p:last-child { color: var(--ink-soft); font-size: 16px; }
+
+/* Playground: the practice page from the app, in a phone-sized pane. */
+.play .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 430px); gap: 56px; align-items: center; padding-block: var(--section); }
+.play .words { gap: 14px; }
+.steps { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 14px; }
+.steps li { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 14px; align-items: baseline; }
+.steps b { font: 700 15px/1 var(--display); color: var(--accent); font-variant-numeric: tabular-nums; }
+.note { font-size: 15px; color: var(--ink-soft); }
+
+.phone { position: relative; width: 100%; max-width: 410px; justify-self: center; aspect-ratio: 390 / 800; border-radius: 48px; overflow: hidden; background: linear-gradient(var(--sky-top), var(--ground) 70%, var(--sky-low)); box-shadow: 0 0 0 10px var(--second), 0 40px 80px -30px color-mix(in srgb, var(--second) 55%, transparent); user-select: none; -webkit-user-select: none; }
+.phone canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: pan-y; cursor: grab; }
+.phone[data-placing] canvas { touch-action: none; cursor: pointer; }
+.pp-head { position: absolute; left: 0; right: 0; top: 0; padding: 40px 22px 0 28px; display: flex; flex-direction: column; gap: 6px; pointer-events: none; }
+.pp-head::before { content: ""; position: absolute; left: -160px; top: -40px; width: 600px; height: 250px; z-index: -1; background: radial-gradient(closest-side, color-mix(in srgb, var(--ground) 88%, transparent) 55%, transparent); }
+.pp-bar { display: flex; align-items: center; justify-content: space-between; margin-right: -12px; }
+.pp-bar .kicker { font-size: 12px; }
+.pp-menu { pointer-events: auto; width: 44px; height: 44px; border: 0; background: none; color: var(--ink-soft); font: 700 20px/1 var(--sans); letter-spacing: 1px; cursor: pointer; border-radius: 22px; }
+.pp-name { font-family: var(--display); font-weight: 700; font-size: 29px; line-height: 1.12; letter-spacing: -0.01em; }
+.pp-count { font-family: var(--display); font-weight: 700; font-size: 18px; color: var(--accent); font-variant-numeric: tabular-nums; }
+.pp-pop { position: absolute; right: 18px; top: 84px; z-index: 3; min-width: 220px; padding: 6px; border-radius: 16px; background: color-mix(in srgb, var(--ground) 96%, white); box-shadow: 0 16px 40px -12px color-mix(in srgb, var(--second) 45%, transparent), 0 0 0 1px var(--line); display: flex; flex-direction: column; }
+.pp-pop button { text-align: left; border: 0; background: none; font: 500 15px/1 var(--sans); color: var(--second); padding: 12px 14px; border-radius: 10px; cursor: pointer; }
+.pp-pop button:hover { background: color-mix(in srgb, var(--main) 8%, transparent); }
+.pp-pop button:disabled { opacity: .4; cursor: default; background: none; }
+.pp-foot { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 20px 26px; display: flex; flex-direction: column; align-items: center; gap: 12px; pointer-events: none; }
+.pp-foot > * { pointer-events: auto; }
+.pp-hint { font: 500 15px/1.35 var(--sans); color: var(--ink-soft); text-align: center; pointer-events: none; }
+.primary { width: 100%; min-height: 56px; border: 0; border-radius: 999px; background: var(--second); color: var(--ground); font: 600 18px/1 var(--display); cursor: pointer; transition: transform .15s, opacity .15s; }
+.primary:active { transform: scale(.98); opacity: .85; }
+
+/* Facts: what v1 is and isn't. */
+.fact-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; margin-top: 40px; border-top: 1px solid var(--line); padding-top: 28px; }
+.fact { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.fact h3 { font-size: 20px; line-height: 1.2; }
+.fact p { color: var(--ink-soft); font-size: 16px; }
+.fact .glyph { width: 30px; height: 30px; }
+
+.end .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: center; padding-block: var(--section); }
+.end .stage { aspect-ratio: 5 / 4; }
+.end .big { font-family: var(--display); font-weight: 700; font-size: clamp(80px, 12vw, 150px); line-height: .92; letter-spacing: -0.02em; }
+.end .mark { height: 8px; width: min(260px, 60%); border-radius: 4px; background: var(--accent); }
+.end .sub { font-size: 24px; color: var(--ink-soft); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-block: 22px 32px; font-size: 14px; color: var(--ink-soft); }
+
+@media (max-width: 900px) {
+  .hero .wrap, .play .wrap, .end .wrap { grid-template-columns: minmax(0, 1fr); }
+  .hero .words { order: -1; padding-top: 28px; }
+  .hero .stage { max-width: 560px; width: 100%; justify-self: center; }
+  .beat-row { grid-template-columns: minmax(0, 1fr); }
+  .fact-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .play .wrap { gap: 48px; }
+  .end .words { order: -1; }
+}
+@media (max-width: 520px) {
+  .fact-row { grid-template-columns: minmax(0, 1fr); }
+  .phone { border-radius: 40px; box-shadow: 0 0 0 7px var(--second), 0 30px 60px -30px color-mix(in srgb, var(--second) 55%, transparent); }
+  .pp-head { padding: 32px 18px 0 22px; }
+}
+@media (prefers-reduced-motion: reduce) { .primary { transition: none; } }

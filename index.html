@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cairn</title>
+<meta name="description" content="Cairn is a habit tracker for iPhone and Android. Every time you practice, you place a pebble, and over the months your habit becomes a sculpture.">
+<meta property="og:title" content="Cairn">
+<meta property="og:description" content="Build habits, one pebble at a time.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#EEF3F6">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<script src="cairn.js" defer></script>
+</head>
+<body>
+<header class="top sky" id="top">
+  <canvas class="air" data-sky="2" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Cairn"><b>Cairn</b><i></i></a>
+  </div>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div class="stage" id="hero-stage">
+        <canvas id="hero-canvas" aria-label="Brass pebbles stacked into a waving stick figure on a floating island"></canvas>
+        <div class="day" aria-hidden="true"><span class="kicker">Day</span><strong id="hero-day"></strong></div>
+      </div>
+      <div class="words">
+        <p class="kicker">One pebble at a time</p>
+        <h1 id="hero-title">Watch your effort grow into something beautiful.</h1>
+        <p class="lede">Cairn helps you build habits. Every time you practice, you get to place a pebble. Months later you have a sculpture made of every day you kept at it.</p>
+        <!-- Store links: until the listings are live, the badges point nowhere and cairn.js stops the click.
+             Put the App Store and Google Play URLs in both rows (here and the end card), then drop that handler. -->
+        <div class="store-row">
+          <a class="badge" href="#" data-store="the App Store"><img src="assets/app-store-badge.svg" alt="Download on the App Store" width="144" height="48"></a><a class="badge badge-google" href="#" data-store="Google Play"><img src="assets/google-play-badge.png" alt="Get it on Google Play" width="185" height="72"></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</header>
+
+<main>
+  <section class="beats" aria-labelledby="beats-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="kicker">How it grows</p>
+        <h2 id="beats-title">Every practice starts small.</h2>
+        <p class="lede">One practice over its first month, with a pebble placed each day.</p>
+      </div>
+      <div class="beat-row">
+        <article class="beat">
+          <div class="stage"><canvas data-beat="1" aria-label="One pebble on an island"></canvas></div>
+          <div class="cap"><p class="kicker">1 pebble</p><h3>Day 1</h3></div>
+        </article>
+        <article class="beat">
+          <div class="stage"><canvas data-beat="12" aria-label="Twelve pebbles: a trunk starting to branch"></canvas></div>
+          <div class="cap"><p class="kicker">12 pebbles</p><h3>Day 12</h3></div>
+        </article>
+        <article class="beat">
+          <div class="stage"><canvas data-beat="all" aria-label="Pebbles grown into a tree"></canvas></div>
+          <div class="cap"><p class="kicker">31 pebbles</p><h3>Day 31</h3></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="play sky" id="try" aria-labelledby="play-title">
+    <canvas class="air" data-sky="9" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="words">
+        <p class="kicker">Try it here</p>
+        <h2 id="play-title">Place a pebble.</h2>
+        <p class="lede">This is the practice page from the app, running in your browser. Nothing you do here is saved.</p>
+        <ol class="steps">
+          <li><b>01</b><span>Tap <strong>Place a pebble</strong>. Every open face lights up.</span></li>
+          <li><b>02</b><span>Tap a glowing face to set the pebble there. Drag to turn the sculpture.</span></li>
+        </ol>
+        <p class="note">Double-tap the island to get back to the starting view.</p>
+      </div>
+      <div class="phone" id="phone">
+        <canvas id="play-canvas" aria-label="Practice sculpture"></canvas>
+        <div class="pp-head">
+          <div class="pp-bar"><span class="kicker">Your practice</span><button class="pp-menu" id="pp-menu" aria-label="Practice options" aria-haspopup="true" aria-expanded="false">···</button></div>
+          <p class="pp-name" id="pp-name">Read every day</p>
+          <p class="pp-count" id="pp-count" aria-live="polite">3 pebbles</p>
+        </div>
+        <div class="pp-pop" id="pp-pop" hidden>
+          <button id="pp-remove">Remove last pebble</button>
+          <button id="pp-reset">Start this island over</button>
+        </div>
+        <div class="pp-foot" id="pp-foot"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="facts" aria-labelledby="facts-title">
+    <div class="wrap">
+      <div class="head"><p class="kicker">How it works</p><h2 id="facts-title">Small on purpose.</h2></div>
+      <div class="fact-row">
+        <div class="fact"><svg class="glyph" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 22 L15 6 L25 22 Z" fill="none" stroke="#C99A3E" stroke-width="2" stroke-linejoin="round"/></svg><h3>As many as you like</h3><p>A pebble is one action. Do it three times today and place three.</p></div>
+        <div class="fact"><svg class="glyph" viewBox="0 0 30 30" aria-hidden="true"><ellipse cx="15" cy="12" rx="11" ry="4" fill="none" stroke="#2F6F8F" stroke-width="2"/><path d="M4 12 Q9 25 15 26 Q21 25 26 12" fill="none" stroke="#2F6F8F" stroke-width="2"/></svg><h3>An island each</h3><p>Every habit grows on its own island, each with its own sculpture.</p></div>
+        <div class="fact"><svg class="glyph" viewBox="0 0 30 30" aria-hidden="true"><rect x="9" y="4" width="12" height="22" rx="3" fill="none" stroke="#1D2A33" stroke-width="2"/><path d="M13 22 h4" stroke="#1D2A33" stroke-width="2" stroke-linecap="round"/></svg><h3>Stays on your phone</h3><p>No account and no sign-up. Your practices live on your phone.</p></div>
+        <div class="fact"><svg class="glyph" viewBox="0 0 30 30" aria-hidden="true"><path d="M6 25 h18 M9 25 v-6 h12 v6 M11 19 v-6 h8 v6 M13 13 v-6 h4 v6" fill="none" stroke="#C99A3E" stroke-width="2" stroke-linejoin="round"/></svg><h3>Built for years</h3><p>A sculpture of 10,000 pebbles still runs smoothly.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="end sky" id="download" aria-labelledby="end-title">
+    <canvas class="air" data-sky="14" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="stage"><canvas id="end-canvas" aria-label="Three islands: a brass tree, a dusk heart and a lake house"></canvas></div>
+      <div class="words">
+        <h2 class="big" id="end-title">Cairn</h2>
+        <div class="mark"></div>
+        <p class="sub">Build habits, one pebble at a time.</p>
+        <div class="store-row">
+          <a class="badge" href="#" data-store="the App Store"><img src="assets/app-store-badge.svg" alt="Download on the App Store" width="144" height="48"></a><a class="badge badge-google" href="#" data-store="Google Play"><img src="assets/google-play-badge.png" alt="Get it on Google Play" width="185" height="72"></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Cairn</span><span>Made with ❤️ in Colorado</span></div></footer>
+</body>
+</html>
