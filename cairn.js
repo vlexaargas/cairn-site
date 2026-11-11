@@ -620,8 +620,5 @@
 
   rebuild(); render();
 
-  // ---------- Download links: inert until the store listings are live; add their URLs to the badges then ----------
-  document.querySelectorAll('a[data-store]').forEach((a) => a.addEventListener('click', (e) => e.preventDefault()));
-
   requestAnimationFrame(frame);
 })();
