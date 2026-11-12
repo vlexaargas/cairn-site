@@ -252,13 +252,19 @@
 
   // ---------- Island (SculptureScene+Meshes.swift) ----------
   const LIGHT = norm([-0.55, 0.85, 0.5]);
+  // Two weak fills shade the faces turned from the sun, within the shadow step: one from the right and a little below,
+  // and one from behind, to the left and below, so the back of a sculpture isn't left unlit.
+  const FILL = norm([1, -0.2, 0.15]), BACK_FILL = norm([-0.5, -0.6, -0.8]);
+  const brightness = (n) => Math.max(dot(n, LIGHT), 0.55 * dot(n, FILL), 0.45 * dot(n, BACK_FILL), 0);
+  // The disc's thickness and the cone's depth below it, as shares of the radius; the camera holds the tip.
+  const THICK = 0.09, DEPTH = 1.15;
   function islandPolys(radius, color) {
-    const r = rng(7), thick = radius * 0.09, under = [], top = [];
+    const r = rng(7), thick = radius * THICK, under = [], top = [];
     const rim = []; for (let s = 0; s < 48; s++) { const a = s / 48 * 2 * Math.PI; rim.push([Math.cos(a) * radius, 0, Math.sin(a) * radius]); }
     top.push({ pts: rim, col: mix(color, 0.38, P.ground) });
     top.push({ pts: rim.map((p) => [p[0] * 0.72 - radius * 0.08, 0.004, p[2] * 0.72 - radius * 0.05]), col: mix(color, 0.26, P.ground) });
     for (let i = 0; i < 48; i++) { const h = rim[i], n = rim[(i + 1) % 48]; under.push({ pts: [h, sub(h, [0, thick, 0]), sub(n, [0, thick, 0]), n], col: mix(color, 0.85, P.second) }); }
-    const sides = 11, depth = radius * 1.15, tip = [radius * 0.05, -thick - depth, radius * 0.04];
+    const sides = 11, depth = radius * DEPTH, tip = [radius * 0.05, -thick - depth, radius * 0.04];
     const ring = []; for (let s = 0; s < sides; s++) { const a = s / sides * 2 * Math.PI, out = radius * (0.9 + r() * 0.1); ring.push([Math.cos(a) * out, -thick - depth * (0.1 + r() * 0.12), Math.sin(a) * out]); }
     const lit = mix(color, 0.72, P.ground), dark = mix(color, 0.88, P.second);
     const sun = (() => { const l = Math.hypot(LIGHT[0], LIGHT[2]); return [LIGHT[0] / l, LIGHT[2] / l]; })();
@@ -344,7 +350,7 @@
         ps.forEach((p) => pts.push(add(p.c, o)));
         const c = add(isle.center, o);
         for (let s = 0; s < 16; s++) { const a = s / 16 * 2 * Math.PI; pts.push(add(c, [Math.cos(a) * isle.radius, 0, Math.sin(a) * isle.radius])); }
-        pts.push(add(c, [0, -isle.radius * 0.9, 0]));
+        pts.push(add(c, [0, -isle.radius * (THICK + DEPTH), 0]));
         if (!ps.length) pts.push(add(c, [0, 2.4, 0]));
       }
       if (!pts.length) return;
@@ -418,7 +424,7 @@
             if (dot(n, eye) <= 0.02) continue;
             const pts = ids.map((j) => p.V[j]);
             poly(pts, o);
-            ctx.fillStyle = rgba(shade(mat.tint, Math.max(0, dot(n, LIGHT)))); ctx.fill();
+            ctx.fillStyle = rgba(shade(mat.tint, brightness(n))); ctx.fill();
             ctx.strokeStyle = stroke; ctx.lineWidth = lw; ctx.stroke();
             if (isle.sculpture) this.hits.push({ kind: 'face', ref: { pebble: i, face: f }, pts: pts.map((q) => proj(q, o)) });
           }
